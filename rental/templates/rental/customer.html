@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p>查询顾客信息：预定，违规，消费额</p>
+	<form action="/rental/customer/" method="post">
+	    {% csrf_token %}
+	    {{ form }}
+	    <input type="submit" value="Submit" />
+	</form>
+	{% if taitou %}
+		<header>
+			<h2>{{ taitou }}</h2>
+		</header>
+		{% if customer_reservations %}		
+			<table>
+				<tr>
+					<th>车牌／日期</th>
+					<th>价格</th>
+				</tr>
+				{% for shiduan,jiage in customer_reservations.items %}
+			        <tr>
+			        	<td>{{ shiduan }}</td>
+			        	<td>{{ jiage }}<td>
+			        </tr>
+		    	{% endfor %}
+		    	<tr>
+		        	<td>总计{{ yuyueshu }}次</td>
+		        	<td>{{ zonghuaxiao }}<td>
+		        </tr>
+			</table>	
+		{% else %}
+			<p>该用户没有预定纪录</p>
+		{% endif %}
+		{% if weigui %}		
+			<table>
+				<tr>
+					<th>车牌／日期</th>
+					<th>类型</th>
+				</tr>
+				{% for riqi,leixing in weigui.items %}
+			        <tr>
+			        	<td>{{ riqi }}</td>
+			        	<td>{{ leixing }}<td>
+			        </tr>
+		    	{% endfor %}
+		    	<tr>
+		        	<td>总计</td>
+		        	<td>{{ weiguishu }}<td>
+		        </tr>
+			</table>	
+		{% else %}
+			<p>该用户没有违规纪录</p>
+		{% endif %}
+	{% endif %}
+{% endblock content %}

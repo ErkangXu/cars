@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+	<p>查询制定时段内可出租车辆,日期格式：四位年两位月两位日（例如20150815）</p>
+	<form action="/rental/available_cars/" method="post">
+	    {% csrf_token %}
+	    {{ form }}
+	    <input type="submit" value="Submit" />
+	</form>
+	{% if start_date %}
+		<header>
+			<h2>{{ start_date.date }} 至 {{ end_date.date }}</h2>
+		</header>
+		{% if car_list %}		
+			<table>
+				{% for car in car_list %}
+			        <tr>
+			        	<td>{{ car.car_name }}</td>
+			        </tr>
+		    	{% endfor %}
+			</table>	
+		{% else %}
+			<p>该时段没有完全空闲车辆</p>
+		{% endif %}
+	{% endif %}
+{% endblock content %}

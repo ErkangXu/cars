@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% if shouxing %}
+		<table>
+			<tr>
+				<th>今日寿星</th>
+				<th>身份证号</th>
+			</tr>
+			{% for person in shouxing %}
+		        <tr>
+		        	<td>{{ person.name }}</td>
+		        	<td>{{ person.ID_number }}<td>
+		        </tr>
+	    	{% endfor %}
+		</table>	
+	{% else %}
+		<p>无人今日生日</p>
+	{% endif %}
+	{% if car_availability %}
+		<table>
+		  	<tr>
+		    	<th>车辆</th>
+		    	<th>接下七天出租情况</th>
+		  	</tr>
+		  	{% for car, reservations in car_availability.items %}
+		        <tr>
+		        	<td>{{ car }}</td>
+		        	<td>
+			        	{% for res in reservations %} 
+			        		{{ res.startDate.day }}->{{ res.endDate.day }},
+			        	{% endfor %} 
+		        	</td>
+		        </tr>
+	    	{% endfor %}
+		</table>
+	{% else %}
+	    <p>没有车辆</p>
+	{% endif %}
+	<a href="/rental/stat/">查询统计信息</a>
+	<a href="/rental/customer/">查询客户信息</a>
+	<a href="/rental/available_cars/">查询可租车辆</a>
+{% endblock content %}

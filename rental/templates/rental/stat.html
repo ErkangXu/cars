@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p>查询统计信息，输入格式4位年2位月（如201508），留空查询所有记录（没有出勤率信息）</p>
+	<form action="/rental/stat/" method="post">
+	    {% csrf_token %}
+	    {{ form }}
+	    <input type="submit" value="Submit" />
+	</form>
+	{% if statistics %}
+		<header>
+			<h2>{{ taitou }}</h2>
+		</header>
+		<table>
+			<tr>
+				<th>车辆</th>
+				<th>营业额／出勤率</th>
+			</tr>
+			{% for che,shouru in statistics.items %}
+		        <tr>
+		        	<td>{{ che }}</td>
+		        	<td>{{ shouru }}<td>
+		        </tr>
+	    	{% endfor %}
+	    	<tr>
+	        	<td>总计</td>
+	        	<td>{{ zongji }}<td>
+	        </tr>
+		</table>	
+	{% else %}
+		<p>没有车辆</p>
+	{% endif %}
+{% endblock content %}
