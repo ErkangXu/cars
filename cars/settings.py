@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'cars.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql_cymysql',
-        'NAME': 'cars',
+        'NAME': 'db-for-car',
         'USER': 'root',
-        'HOST':'127.0.0.1',
-        'PORT':'3306',
+        'HOST':'cwensyk0vm.database.windows.net',
+        'PORT':'1433',
     }
 }
 
